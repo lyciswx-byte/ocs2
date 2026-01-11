@@ -3,6 +3,8 @@ import sys
 
 import launch
 import launch_ros.actions
+from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
+from launch_ros.substitutions import FindPackageShare
 from ament_index_python.packages import get_package_share_directory
 
 
@@ -32,46 +34,58 @@ def generate_launch_description():
         ),
         launch.actions.DeclareLaunchArgument(
             name='taskFile',
-            default_value=[get_package_share_directory('ocs2_robotic_assets'),
-                          '/resources/',
-                          launch.substitutions.LaunchConfiguration('robot_name'),
-                          '/mpc/task.info']
+            default_value=PathJoinSubstitution([
+                FindPackageShare('ocs2_robotic_assets'),
+                'resources',
+                LaunchConfiguration('robot_name'),
+                'mpc',
+                'task.info'
+            ])
         ),
         launch.actions.DeclareLaunchArgument(
             name='referenceFile',
-            default_value=[get_package_share_directory('ocs2_robotic_assets'),
-                          '/resources/',
-                          launch.substitutions.LaunchConfiguration('robot_name'),
-                          '/mpc/reference.info']
+            default_value=PathJoinSubstitution([
+                FindPackageShare('ocs2_robotic_assets'),
+                'resources',
+                LaunchConfiguration('robot_name'),
+                'mpc',
+                'reference.info'
+            ])
         ),
         launch.actions.DeclareLaunchArgument(
             name='urdfFile',
-            default_value=[get_package_share_directory('ocs2_robotic_assets'),
-                          '/resources/',
-                          launch.substitutions.LaunchConfiguration('robot_name'),
-                          '/urdf/',
-                          launch.substitutions.LaunchConfiguration('robot_name'),
-                          '.urdf']
+            default_value=PathJoinSubstitution([
+                FindPackageShare('ocs2_robotic_assets'),
+                'resources',
+                LaunchConfiguration('robot_name'),
+                'urdf',
+                [LaunchConfiguration('robot_name'), '.urdf']
+            ])
         ),
         launch.actions.DeclareLaunchArgument(
             name='gaitCommandFile',
-            default_value=[get_package_share_directory('ocs2_robotic_assets'),
-                          '/resources/',
-                          launch.substitutions.LaunchConfiguration('robot_name'),
-                          '/mpc/gait.info']
+            default_value=PathJoinSubstitution([
+                FindPackageShare('ocs2_robotic_assets'),
+                'resources',
+                LaunchConfiguration('robot_name'),
+                'mpc',
+                'gait.info'
+            ])
         ),
         launch.actions.DeclareLaunchArgument(
             name='resourcePath',
-            default_value=[get_package_share_directory('ocs2_robotic_assets'),
-                          '/resources/',
-                          launch.substitutions.LaunchConfiguration('robot_name'),
-                          '/meshes']
+            default_value=PathJoinSubstitution([
+                FindPackageShare('ocs2_robotic_assets'),
+                'resources',
+                LaunchConfiguration('robot_name'),
+                'meshes'
+            ])
         ),
         launch_ros.actions.Node(
             package="robot_state_publisher",
             executable="robot_state_publisher",
             output="screen",
-            arguments=[launch.substitutions.LaunchConfiguration("urdfFile")],
+            arguments=[LaunchConfiguration("urdfFile")],
         ),
         launch_ros.actions.Node(
             package='rviz2',
@@ -80,7 +94,7 @@ def generate_launch_description():
             output='screen',
             arguments=["-d", rviz_config_file],
             condition=launch.conditions.IfCondition(
-                launch.substitutions.LaunchConfiguration('rviz'))
+                LaunchConfiguration('rviz'))
         ),
         launch_ros.actions.Node(
             package='ocs2_legged_robot_ros',
@@ -90,13 +104,13 @@ def generate_launch_description():
             output='screen',
             parameters=[
                 {
-                    'taskFile': launch.substitutions.LaunchConfiguration('taskFile')
+                    'taskFile': LaunchConfiguration('taskFile')
                 },
                 {
-                    'referenceFile': launch.substitutions.LaunchConfiguration('referenceFile')
+                    'referenceFile': LaunchConfiguration('referenceFile')
                 },
                 {
-                    'urdfFile': launch.substitutions.LaunchConfiguration('urdfFile')
+                    'urdfFile': LaunchConfiguration('urdfFile')
                 }
             ]
         ),
@@ -105,16 +119,16 @@ def generate_launch_description():
             executable='legged_robot_dummy',
             name='legged_robot_dummy',
             output='screen',
-            prefix=launch.substitutions.LaunchConfiguration('terminal_prefix'),
+            prefix=LaunchConfiguration('terminal_prefix'),
             parameters=[
                 {
-                    'taskFile': launch.substitutions.LaunchConfiguration('taskFile')
+                    'taskFile': LaunchConfiguration('taskFile')
                 },
                 {
-                    'referenceFile': launch.substitutions.LaunchConfiguration('referenceFile')
+                    'referenceFile': LaunchConfiguration('referenceFile')
                 },
                 {
-                    'urdfFile': launch.substitutions.LaunchConfiguration('urdfFile')
+                    'urdfFile': LaunchConfiguration('urdfFile')
                 }
             ]
         ),
@@ -123,10 +137,10 @@ def generate_launch_description():
             executable='legged_robot_target',
             name='legged_robot_target',
             output='screen',
-            prefix=launch.substitutions.LaunchConfiguration('terminal_prefix'),
+            prefix=LaunchConfiguration('terminal_prefix'),
             parameters=[
                 {
-                    'referenceFile': launch.substitutions.LaunchConfiguration('referenceFile')
+                    'referenceFile': LaunchConfiguration('referenceFile')
                 }
             ]
         ),
@@ -135,10 +149,10 @@ def generate_launch_description():
             executable='legged_robot_gait_command',
             name='legged_robot_gait_command',
             output='screen',
-            prefix=launch.substitutions.LaunchConfiguration('terminal_prefix'),
+            prefix=LaunchConfiguration('terminal_prefix'),
             parameters=[
                 {
-                    'gaitCommandFile': launch.substitutions.LaunchConfiguration('gaitCommandFile')
+                    'gaitCommandFile': LaunchConfiguration('gaitCommandFile')
                 }
             ]
         )
