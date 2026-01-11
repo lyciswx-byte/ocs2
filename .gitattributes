@@ -1,1 +1,2 @@
 jenkins-pipeline merge-ours
+*.dae filter=lfs diff=lfs merge=lfs -text
