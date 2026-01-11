@@ -26,24 +26,46 @@ def generate_launch_description():
             default_value=''
         ),
         launch.actions.DeclareLaunchArgument(
+            name='robot_name',
+            default_value='anymal_c',
+            description='Robot name: anymal_c, b2, etc.'
+        ),
+        launch.actions.DeclareLaunchArgument(
             name='taskFile',
-            default_value=get_package_share_directory(
-                'ocs2_legged_robot') + '/config/mpc/task.info'
+            default_value=[get_package_share_directory('ocs2_robotic_assets'),
+                          '/resources/',
+                          launch.substitutions.LaunchConfiguration('robot_name'),
+                          '/mpc/task.info']
         ),
         launch.actions.DeclareLaunchArgument(
             name='referenceFile',
-            default_value=get_package_share_directory(
-                'ocs2_legged_robot') + '/config/command/reference.info'
+            default_value=[get_package_share_directory('ocs2_robotic_assets'),
+                          '/resources/',
+                          launch.substitutions.LaunchConfiguration('robot_name'),
+                          '/mpc/reference.info']
         ),
         launch.actions.DeclareLaunchArgument(
             name='urdfFile',
-            default_value=get_package_share_directory(
-                'ocs2_robotic_assets') + '/resources/anymal_c/urdf/anymal.urdf'
+            default_value=[get_package_share_directory('ocs2_robotic_assets'),
+                          '/resources/',
+                          launch.substitutions.LaunchConfiguration('robot_name'),
+                          '/urdf/',
+                          launch.substitutions.LaunchConfiguration('robot_name'),
+                          '.urdf']
         ),
         launch.actions.DeclareLaunchArgument(
             name='gaitCommandFile',
-            default_value=get_package_share_directory(
-                'ocs2_legged_robot') + '/config/command/gait.info'
+            default_value=[get_package_share_directory('ocs2_robotic_assets'),
+                          '/resources/',
+                          launch.substitutions.LaunchConfiguration('robot_name'),
+                          '/mpc/gait.info']
+        ),
+        launch.actions.DeclareLaunchArgument(
+            name='resourcePath',
+            default_value=[get_package_share_directory('ocs2_robotic_assets'),
+                          '/resources/',
+                          launch.substitutions.LaunchConfiguration('robot_name'),
+                          '/meshes']
         ),
         launch_ros.actions.Node(
             package="robot_state_publisher",

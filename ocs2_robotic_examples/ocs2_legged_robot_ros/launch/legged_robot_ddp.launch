@@ -6,14 +6,19 @@
     <arg name="description_name"   default="legged_robot_description"/>
     <arg name="multiplot"          default="false"/>
 
+    <!-- Robot selection: anymal_c, b2, etc. -->
+    <arg name="robot_name"         default="anymal_c"/>
+
     <!-- The task file for the mpc. -->
-    <arg name="taskFile"          default="$(find ocs2_legged_robot)/config/mpc/task.info"/>
+    <arg name="taskFile"          default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/mpc/task.info"/>
     <!-- The reference related config file of the robot -->
-    <arg name="referenceFile"     default="$(find ocs2_legged_robot)/config/command/reference.info"/>
+    <arg name="referenceFile"     default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/mpc/reference.info"/>
     <!-- The URDF model of the robot -->
-    <arg name="urdfFile"          default="$(find ocs2_robotic_assets)/resources/anymal_c/urdf/anymal.urdf"/>
+    <arg name="urdfFile"          default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/urdf/$(arg robot_name).urdf"/>
     <!-- The file defining gait definition -->
-    <arg name="gaitCommandFile"   default="$(find ocs2_legged_robot)/config/command/gait.info"/>
+    <arg name="gaitCommandFile"   default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/mpc/gait.info"/>
+    <!-- The path to the resource directory (meshes etc.) -->
+    <arg name="resourcePath"      default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/meshes"/>
 
     <!-- rviz -->
     <group if="$(arg rviz)">
@@ -33,6 +38,7 @@
     <param name="referenceFile"     value="$(arg referenceFile)" />
     <param name="urdfFile"          value="$(arg urdfFile)" />
     <param name="gaitCommandFile"   value="$(arg gaitCommandFile)"/>
+    <param name="resourcePath"      value="$(arg resourcePath)"/>
 
     <node pkg="ocs2_legged_robot_ros" type="legged_robot_ddp_mpc" name="legged_robot_ddp_mpc"
           output="screen" launch-prefix=""/>

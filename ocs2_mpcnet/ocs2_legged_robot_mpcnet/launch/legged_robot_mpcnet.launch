@@ -6,18 +6,21 @@
     <arg name="description_name"   default="legged_robot_description"/>
     <arg name="multiplot"          default="false"/>
 
+    <!-- Robot selection: anymal_c, b2, etc. -->
+    <arg name="robot_name"         default="anymal_c"/>
+
     <!-- The task file for the mpc. -->
-    <arg name="taskFile"          default="$(find ocs2_legged_robot)/config/mpc/task.info"/>
+    <arg name="taskFile"          default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/mpc/task.info"/>
     <!-- The reference related config file of the robot -->
-    <arg name="referenceFile"     default="$(find ocs2_legged_robot)/config/command/reference.info"/>
+    <arg name="referenceFile"     default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/mpc/reference.info"/>
     <!-- The URDF model of the robot -->
-    <arg name="urdfFile"          default="$(find ocs2_robotic_assets)/resources/anymal_c/urdf/anymal.urdf"/>
+    <arg name="urdfFile"          default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/urdf/$(arg robot_name).urdf"/>
     <!-- The file defining gait definition -->
-    <arg name="gaitCommandFile"   default="$(find ocs2_legged_robot)/config/command/gait.info"/>
+    <arg name="gaitCommandFile"   default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/mpc/gait.info"/>
     <!-- The file containing the RaiSim settings -->
     <arg name="raisimFile"        default="$(find ocs2_legged_robot_raisim)/config/raisim.info"/>
     <!-- The path to the resource directory (meshes etc.) -->
-    <arg name="resourcePath"      default="$(find ocs2_robotic_assets)/resources/anymal_c/meshes"/>
+    <arg name="resourcePath"      default="$(find ocs2_robotic_assets)/resources/$(arg robot_name)/meshes"/>
     <!-- The path to the MPC-Net policy -->
     <arg name="policyFile"        default="$(find ocs2_legged_robot_mpcnet)/policy/legged_robot.onnx"/>
     <!-- Whether to use RaiSim or not -->
