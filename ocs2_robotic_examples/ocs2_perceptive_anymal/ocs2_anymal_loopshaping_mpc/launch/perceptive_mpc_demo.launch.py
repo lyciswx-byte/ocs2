@@ -23,7 +23,7 @@ def launch_setup(context, *args, **kwargs):
     if robot_name == 'b2':
         urdf_model_path = get_package_share_directory('ocs2_robotic_assets') + "/resources/b2/urdf/b2.urdf"
     else:
-        urdf_model_path = get_package_share_directory('ocs2_robotic_assets') + "/resources/anymal_c/urdf/anymal.urdf"
+        urdf_model_path = get_package_share_directory('ocs2_robotic_assets') + "/resources/anymal_c/urdf/anymal_c.urdf"
 
     rviz_config_file = get_package_share_directory('ocs2_anymal_loopshaping_mpc') + "/config/rviz/demo_config.rviz"
 
@@ -84,7 +84,7 @@ def generate_launch_description():
         ),
         launch.actions.DeclareLaunchArgument(
             name='config_name',
-            default_value='c_series'
+            default_value='anymal_c'
         ),
         launch.actions.DeclareLaunchArgument(
             name='description_name',
