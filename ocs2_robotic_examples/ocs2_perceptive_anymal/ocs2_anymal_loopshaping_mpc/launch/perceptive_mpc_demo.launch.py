@@ -22,6 +22,8 @@ def launch_setup(context, *args, **kwargs):
     
     if robot_name == 'b2':
         urdf_model_path = get_package_share_directory('ocs2_robotic_assets') + "/resources/b2/urdf/b2.urdf"
+    elif robot_name == 'yg_b2':
+        urdf_model_path = get_package_share_directory('ocs2_robotic_assets') + "/resources/yg_b2/urdf/yg_b2.urdf"
     else:
         urdf_model_path = get_package_share_directory('ocs2_robotic_assets') + "/resources/anymal_c/urdf/anymal_c.urdf"
 

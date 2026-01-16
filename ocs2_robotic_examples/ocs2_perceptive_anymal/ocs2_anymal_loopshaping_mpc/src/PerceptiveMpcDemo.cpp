@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
   const std::string urdfPath =
       node->get_parameter("ocs2_anymal_description").as_string();
   if (urdfPath != "anymal") urdfString = anymal::getUrdfString(urdfPath);
-  node->declare_parameter("config_name", "c_series");
+  node->declare_parameter("config_name", "anymal_c");
   const std::string configName = node->get_parameter("config_name").as_string();
 
   convex_plane_decomposition::PlaneDecompositionPipeline::Config
