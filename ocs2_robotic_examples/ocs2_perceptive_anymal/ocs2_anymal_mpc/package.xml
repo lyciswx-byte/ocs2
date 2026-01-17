@@ -13,6 +13,7 @@
   <depend>rclcpp</depend>
   <depend>ocs2_anymal_models</depend>
   <depend>ocs2_quadruped_interface</depend>
+  <exec_depend>ocs2_robotic_assets</exec_depend>
 
   <exec_depend>ocs2_anymal_commands</exec_depend>
   <test_depend>ament_cmake_gtest</test_depend>
